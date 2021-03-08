@@ -9,11 +9,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 public class AdapterValute extends RecyclerView.Adapter<AdapterValute.ViewHolder> {
-    private Value mValue;
+    private ArrayList<Valute> mValue;
     private Context mContext;
 
-    public AdapterValute(Value list, Context context) {
+    public AdapterValute(ArrayList<Valute> list, Context context) {
         this.mContext=context;
         this.mValue =list;
     }
@@ -27,21 +31,22 @@ public class AdapterValute extends RecyclerView.Adapter<AdapterValute.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final String name = mValue.getMapValute().get(position).name;
-        final String valute = mValue.getMapValute().get(position).value;
+        String name = mValue.get(position).name;
+        String value = mValue.get(position).value;
 
         holder.name.setText(name);
-        holder.value.setText(valute);
+        holder.value.setText(value);
     }
 
     @Override
     public int getItemCount() {
-        return mValue.getMapValute().size();
+        return mValue.size();
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView name,value;
+        private TextView name;
+        private TextView value;
 
         public ViewHolder(View view) {
             super(view);

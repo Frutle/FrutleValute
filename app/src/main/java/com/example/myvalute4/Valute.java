@@ -4,20 +4,20 @@ import com.google.gson.annotations.SerializedName;
 
 public class Valute {
 
-    @SerializedName("ID")
-    public String iD;
-    @SerializedName("NumCode")
-    public String numCode;
-    @SerializedName("CharCode")
-    public String charCode;
-    @SerializedName("Nominal")
-    public int nominal;
+//    @SerializedName("ID")
+//    public String iD;
+//    @SerializedName("NumCode")
+//    public String numCode;
+//    @SerializedName("CharCode")
+//    public String charCode;
+//    @SerializedName("Nominal")
+//    public int nominal;
     @SerializedName("Name")
     public String name;
     @SerializedName("Value")
     public String value;
-    @SerializedName("Previous")
-    public double previous;
+//    @SerializedName("Previous")
+//    public double previous;
 
     public String getName() {
         return name;
@@ -28,17 +28,11 @@ public class Valute {
     }
 
 
-
     @Override
     public String toString() {
         return "Valute{" +
-                "iD='" + iD + '\'' +
-                ", numCode='" + numCode + '\'' +
-                ", charCode='" + charCode + '\'' +
-                ", nominal=" + nominal +
-                ", name='" + name + '\'' +
-                ", value=" + value +
-                ", previous=" + previous +
+                "name='" + name + '\'' +
+                ", value='" + value + '\'' +
                 '}';
     }
 }

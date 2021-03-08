@@ -1,6 +1,8 @@
 package com.example.myvalute4;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -10,7 +12,10 @@ import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import retrofit2.Call;
@@ -30,9 +35,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//
-//        mRecyclerView = findViewById(R.id.recyclerview);
-//        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mRecyclerView = findViewById(R.id.recyclerview);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://www.cbr-xml-daily.ru/")
@@ -52,10 +58,10 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<Value> call, Response<Value> response) {
                 if(response.isSuccessful() && response.body() != null){
                     mValues = response.body();
-
-                    Toast.makeText(getApplicationContext(),mValues.Valute.values().toString(),Toast.LENGTH_LONG).show();
-//                    mAdapterValute = new AdapterValute(mValues,MainActivity.this);
-//                    mRecyclerView.setAdapter(mAdapterValute);
+//                    Toast.makeText(getApplicationContext(),mValues.Valute.values().toString(),Toast.LENGTH_LONG).show();
+                    ArrayList<Valute> valuteList = new ArrayList<>(mValues.getMapValute().values());
+                    mAdapterValute = new AdapterValute(valuteList,MainActivity.this);
+                    mRecyclerView.setAdapter(mAdapterValute);
                 }
             }
 
