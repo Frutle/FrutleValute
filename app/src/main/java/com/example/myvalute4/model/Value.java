@@ -1,9 +1,8 @@
-package com.example.myvalute4;
+package com.example.myvalute4.model;
 
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
 import java.util.Map;
 
 public class Value {
@@ -14,7 +13,7 @@ public class Value {
     private String Timestamp;
 
     @SerializedName("Valute")
-    Map<String,Valute> Valute;
+    Map<String, com.example.myvalute4.model.Valute> Valute;
 
     public String getDate() {
         return Date;

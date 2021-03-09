@@ -1,4 +1,4 @@
-package com.example.myvalute4;
+package com.example.myvalute4.model;
 
 import com.google.gson.annotations.SerializedName;
 

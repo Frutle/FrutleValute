@@ -9,9 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myvalute4.model.Valute;
+
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class AdapterValute extends RecyclerView.Adapter<AdapterValute.ViewHolder> {
     private ArrayList<Valute> mValue;
