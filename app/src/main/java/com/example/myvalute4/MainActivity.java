@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.myvalute4.convertValute.ConvertValuteActivity;
 import com.example.myvalute4.model.Value;
 import com.example.myvalute4.model.Valute;
 
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Intent intent = new Intent(MainActivity.this,ConvertValuteActivity.class);
+        Intent intent = new Intent(MainActivity.this, ConvertValuteActivity.class);
         startActivity(intent);
         return super.onOptionsItemSelected(item);
     }
