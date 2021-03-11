@@ -6,11 +6,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".convertValute.ConvertValuteActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/Ruble"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1"/>
+
+    <TextView
+        android:id="@+id/ConverValute"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1"/>
+
+    <Button
+        android:id="@+id/bt1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Конвертировать"/>
 
 </LinearLayout>

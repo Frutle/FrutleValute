@@ -34,4 +34,16 @@ public class Value {
     public Map<String, Valute> getMapValute() {
         return Valute;
     }
+
+    @Override
+    public String toString() {
+        return "Value{" +
+                "Date='" + Date + '\'' +
+                ", PreviousDate='" + PreviousDate + '\'' +
+                ", PreviousUrl='" + PreviousUrl + '\'' +
+                ", Timestamp='" + Timestamp + '\'' +
+                ", Valute=" + Valute +
+                '}';
+    }
+
 }

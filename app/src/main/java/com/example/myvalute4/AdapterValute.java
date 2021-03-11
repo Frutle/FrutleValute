@@ -32,10 +32,10 @@ public class AdapterValute extends RecyclerView.Adapter<AdapterValute.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String name = mValue.get(position).name;
-        String value = mValue.get(position).value;
+        Double value = mValue.get(position).value;
 
         holder.name.setText(name);
-        holder.value.setText(value);
+        holder.value.setText(value.toString());
     }
 
     @Override
