@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.health.TimerStat;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -18,7 +20,15 @@ import com.example.myvalute4.model.Value;
 import com.example.myvalute4.model.Valute;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private Value mValues;
     private RecyclerView mRecyclerView;
     private Toolbar mToolbar;
+    private MainActivity service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,26 +48,37 @@ public class MainActivity extends AppCompatActivity {
 
         init();
         getValute();
+
+
     }
 
-    public void getValute(){
-        Call<Value> call = Api.getPlaceHolderApi().getValue();
-        call.enqueue(new Callback<Value>() {
+    private void getValute(){
+        Timer timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
             @Override
-            public void onResponse(Call<Value> call, Response<Value> response) {
-                if(response.isSuccessful() && response.body() != null){
-                    mValues = response.body();
-                    ArrayList<Valute> valuteList = new ArrayList<>(mValues.getMapValute().values());
-                    mAdapterValute = new AdapterValute(valuteList,MainActivity.this);
-                    mRecyclerView.setAdapter(mAdapterValute);
-                }
-            }
+            public void run() {
+                Call<Value> call = Api.getPlaceHolderApi().getValue();
+                call.enqueue(new Callback<Value>() {
+                    @Override
+                    public void onResponse(Call<Value> call, Response<Value> response) {
+                        if(response.isSuccessful() && response.body() != null){
+                            mValues = response.body();
+                            ArrayList<Valute> valuteList = new ArrayList<>(mValues.getMapValute().values());
+                            mAdapterValute = new AdapterValute(valuteList,MainActivity.this);
+                            mRecyclerView.setAdapter(mAdapterValute);
+                            Log.d("request","Обновили данные");
+                        }
+                    }
 
-            @Override
-            public void onFailure(Call<Value> call, Throwable t) {
-                Toast.makeText(getApplicationContext(),"Ошибка",Toast.LENGTH_LONG).show();
+                    @Override
+                    public void onFailure(Call<Value> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(),"Ошибка",Toast.LENGTH_LONG).show();
+                    }
+                });
             }
-        });
+        };
+        timer.schedule(timerTask,0,60000);
+
     }
 
     private void init(){
@@ -82,4 +104,5 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         return super.onOptionsItemSelected(item);
     }
+    
 }
