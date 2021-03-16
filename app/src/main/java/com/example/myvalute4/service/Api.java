@@ -1,4 +1,4 @@
-package com.example.myvalute4;
+package com.example.myvalute4.service;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

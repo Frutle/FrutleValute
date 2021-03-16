@@ -12,7 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.myvalute4.Api;
+import com.example.myvalute4.service.Api;
 import com.example.myvalute4.R;
 import com.example.myvalute4.model.Value;
 import com.example.myvalute4.model.Valute;

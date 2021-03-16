@@ -1,4 +1,4 @@
-package com.example.myvalute4;
+package com.example.myvalute4.service;
 
 import com.example.myvalute4.model.Value;
 

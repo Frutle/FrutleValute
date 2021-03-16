@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.health.TimerStat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,12 +17,11 @@ import android.widget.Toast;
 import com.example.myvalute4.convertValute.ConvertValuteActivity;
 import com.example.myvalute4.model.Value;
 import com.example.myvalute4.model.Valute;
+import com.example.myvalute4.service.Api;
 
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private Value mValues;
     private RecyclerView mRecyclerView;
     private Toolbar mToolbar;
-    private MainActivity service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
         init();
         getValute();
-
 
     }
 
