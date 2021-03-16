@@ -2,6 +2,7 @@ package com.example.myvalute4.convertValute;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,6 +17,7 @@ import com.example.myvalute4.service.Api;
 import com.example.myvalute4.R;
 import com.example.myvalute4.model.Value;
 import com.example.myvalute4.model.Valute;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.myvalute4.MainActivity.hasConnection;
 import static com.example.myvalute4.convertValute.Сalculator.moneyConvert;
 
 public class ConvertValuteActivity extends AppCompatActivity {
@@ -36,6 +39,9 @@ public class ConvertValuteActivity extends AppCompatActivity {
     private TextView valuteText;
     private List<Valute> valuteConvert;
     private Button mButton;
+    private String json;
+    private SharedPreferences.Editor prefsEditor;
+    private SharedPreferences mPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +49,7 @@ public class ConvertValuteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_convert_valute);
 
         init();
-        getValute();
+        initConvertValute();
 
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -67,7 +73,6 @@ public class ConvertValuteActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
     private void getValute(){
@@ -81,9 +86,15 @@ public class ConvertValuteActivity extends AppCompatActivity {
                     List<String> keyMain = new ArrayList<>();
                     valuteConvert = new ArrayList(mValues.getMapValute().values());
                     keyMain.addAll(key);
+
                     mAdapter = new ArrayAdapter<String>(ConvertValuteActivity.this, android.R.layout.simple_spinner_item,keyMain);
                     mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     mSpinner.setAdapter(mAdapter);
+
+                    json = new Gson().toJson(mValues,Value.class);
+                    prefsEditor.putString("MySpinner", json);
+                    prefsEditor.commit();
+
                 }
             }
 
@@ -95,11 +106,37 @@ public class ConvertValuteActivity extends AppCompatActivity {
     }
 
     private void init(){
+        mPrefs = getPreferences(MODE_PRIVATE);
+        prefsEditor = mPrefs.edit();
+
         ruble = findViewById(R.id.Ruble);
         valuteText = findViewById(R.id.ConverValute);
         mSpinner = findViewById(R.id.spinner);
         mButton = findViewById(R.id.bt1);
     }
+    //подругажем данные если нету интернета
+    private void initSpinnerNoInternet(){
 
+        String json = mPrefs.getString("MySpinner", "");
+        Value jsonObject = new Gson().fromJson(json, Value.class);
+
+        Set<String> key = jsonObject.getMapValute().keySet();
+        List<String> keyMain = new ArrayList<>();
+        valuteConvert = new ArrayList(jsonObject.getMapValute().values());
+        keyMain.addAll(key);
+
+        mAdapter = new ArrayAdapter<String>(ConvertValuteActivity.this, android.R.layout.simple_spinner_item,keyMain);
+        mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinner.setAdapter(mAdapter);
+    }
+
+   //Если есть подключение обновляем данные,иначе подргужаем старые
+   private void initConvertValute(){
+        if(hasConnection(ConvertValuteActivity.this)){
+            getValute();
+        } else {
+            initSpinnerNoInternet();
+        }
+   }
 
 }

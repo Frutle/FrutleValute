@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Map;
 
-public class Value {
+public class Value  {
 
     private String Date;
     private String PreviousDate;
