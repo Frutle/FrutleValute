@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -134,8 +135,10 @@ public class ConvertValuteActivity extends AppCompatActivity {
    private void initConvertValute(){
         if(hasConnection(ConvertValuteActivity.this)){
             getValute();
+            Log.d("Internet", "Подключение есть");
         } else {
             initSpinnerNoInternet();
+            Log.d("Internet", "Подключения нету");
         }
    }
 

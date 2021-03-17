@@ -108,9 +108,18 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Intent intent = new Intent(MainActivity.this, ConvertValuteActivity.class);
-        startActivity(intent);
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()){
+            case R.id.action_convert:
+                Intent intent = new Intent(MainActivity.this, ConvertValuteActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.action_up:
+                getValute();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
     }
 
     private void initValuteNoInternet(){
@@ -152,11 +161,9 @@ public class MainActivity extends AppCompatActivity {
         if (hasConnection(getApplicationContext())){
             getValute();
             Log.d("Internet", "Подключение есть");
-            Toast.makeText(getApplicationContext(), "Подключение есть", Toast.LENGTH_LONG).show();
         } else {
             initValuteNoInternet();
             Log.d("Internet", "Подключения нету");
-            Toast.makeText(getApplicationContext(), "Подключения нету", Toast.LENGTH_LONG).show();
         }
     }
 

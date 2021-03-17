@@ -8,4 +8,10 @@
         app:showAsAction="never"
         />
 
+    <item
+        android:id="@+id/action_up"
+        android:title="обновить"
+        app:showAsAction="never"
+        />
+
 </menu>
